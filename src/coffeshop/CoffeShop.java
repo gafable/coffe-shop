@@ -5,6 +5,7 @@
  */
 package coffeshop;
 
+import javax.swing.JOptionPane;
 import services.DbConnection;
 import views.auth.Login;
 
@@ -18,6 +19,7 @@ public class CoffeShop {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        JOptionPane.showMessageDialog(null, "hello world!");
         new  DbConnection().connect();
         new Login().setVisible(true);
     }
