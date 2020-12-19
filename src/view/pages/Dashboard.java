@@ -5,6 +5,8 @@
  */
 package view.pages;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import models.User;
 import services.DbConnection;
 import utilities.CanShowPage;

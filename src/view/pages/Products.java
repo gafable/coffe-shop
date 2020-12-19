@@ -5,6 +5,9 @@
  */
 package view.pages;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author 1styrGroupB
