@@ -5,11 +5,19 @@
  */
 package view.pages;
 
+<<<<<<< HEAD
 import java.awt.Image;
 import javax.swing.ImageIcon;
+=======
+import controllers.ProductController;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import models.Product;
+>>>>>>> faee200f4450b04c1f5ece5407e1d27c91040fe1
 import models.User;
 import services.DbConnection;
 import utilities.CanShowPage;
+import views.auth.Login;
 
 /**
  *
@@ -19,11 +27,15 @@ public class Dashboard extends javax.swing.JFrame implements CanShowPage {
 
     private DbConnection dbConnection;
     private User user;
+    private ArrayList<Product> products;
+    DefaultTableModel model;
+    boolean show = false;
 
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
+
         initComponents();
     }
 
@@ -36,58 +48,22 @@ public class Dashboard extends javax.swing.JFrame implements CanShowPage {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jTextField2 = new javax.swing.JTextField();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
-        jLabel10 = new javax.swing.JLabel();
-        jSeparator5 = new javax.swing.JSeparator();
+        main = new javax.swing.JPanel();
+        navbar = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        ImageIcon background=new ImageIcon("/dist/images/admin.png");
-        Image img=background.getImage();
-        Image temp=img.getScaledInstance(100,100,Image.SCALE_SMOOTH);
-        background=new ImageIcon(temp);
-        back2 = new javax.swing.JLabel(background);
+        jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-
-        jTextField1.setText("jTextField1");
-
-        jRadioButtonMenuItem1.setSelected(true);
-        jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
-
-        jMenu1.setText("jMenu1");
-
-        jMenu2.setText("jMenu2");
-
-        jTextField2.setText("jTextField2");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jToggleButton1.setText("jToggleButton1");
+        content = new javax.swing.JPanel();
+        totalProducts = new javax.swing.JPanel();
+        totalProductLabel = new javax.swing.JLabel();
+        totalCountLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        search = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        addProduct = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Coffee Shop Dashboard");
@@ -119,15 +95,204 @@ public class Dashboard extends javax.swing.JFrame implements CanShowPage {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, -1, -1));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        main.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        navbar.setBackground(new java.awt.Color(77, 38, 0));
+        navbar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 204, 204), null, null, new java.awt.Color(153, 153, 153)));
+
+        jLabel6.setFont(new java.awt.Font("Constantia", 3, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("<coffee/>");
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dist/images/icon-3.png"))); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Logout");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout navbarLayout = new javax.swing.GroupLayout(navbar);
+        navbar.setLayout(navbarLayout);
+        navbarLayout.setHorizontalGroup(
+            navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navbarLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 706, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(34, 34, 34))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        navbarLayout.setVerticalGroup(
+            navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navbarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(navbarLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3))))
+                .addContainerGap())
+        );
+
+        main.add(navbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 70));
+
+        content.setBackground(new java.awt.Color(255, 255, 255));
+
+        totalProducts.setBackground(new java.awt.Color(0, 204, 204));
+
+        totalProductLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        totalProductLabel.setForeground(new java.awt.Color(255, 255, 255));
+        totalProductLabel.setText("Total Products");
+
+        totalCountLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        totalCountLabel.setForeground(new java.awt.Color(255, 255, 255));
+        totalCountLabel.setText("100");
+
+        javax.swing.GroupLayout totalProductsLayout = new javax.swing.GroupLayout(totalProducts);
+        totalProducts.setLayout(totalProductsLayout);
+        totalProductsLayout.setHorizontalGroup(
+            totalProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(totalProductsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(totalProductLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 765, Short.MAX_VALUE)
+                .addComponent(totalCountLabel)
+                .addContainerGap())
+        );
+        totalProductsLayout.setVerticalGroup(
+            totalProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(totalProductsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(totalProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(totalProductLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalCountLabel))
+                .addGap(0, 11, Short.MAX_VALUE))
+        );
+
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table);
+        if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(0).setResizable(false);
+            table.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jLabel1.setFont(new java.awt.Font("Mongolian Baiti", 0, 24)); // NOI18N
+        jLabel1.setText("Products");
+
+        search.setToolTipText("");
+        search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Search :");
+
+        addProduct.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        addProduct.setText("Add +");
+        addProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addProductActionPerformed(evt);
+            }
+        });
+
+        deleteBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        deleteBtn.setText("Delete -");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(totalProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(addProduct)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(264, 264, 264)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        contentLayout.setVerticalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(totalProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(addProduct)
+                            .addComponent(deleteBtn))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
+        );
+
+        main.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1000, 670));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(main, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(734, 0, -1, -1));
@@ -209,13 +374,46 @@ public class Dashboard extends javax.swing.JFrame implements CanShowPage {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void addProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductActionPerformed
+        StoreProduct store = new StoreProduct();
+        store.setDashboard(this);
+        store.showPage(dbConnection);
+    }//GEN-LAST:event_addProductActionPerformed
 
-    private void jPanel2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel2AncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel2AncestorAdded
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+
+        this.model = (DefaultTableModel) this.table.getModel();
+        int row = this.table.getSelectedRow();
+
+        Product product = new Product();
+        product.setId(Integer.parseInt(this.model.getValueAt(row, 0).toString()));
+        product.setName(this.model.getValueAt(row, 1).toString());
+        product.setBrand(this.model.getValueAt(row, 2).toString());
+        product.setPrice(Double.parseDouble(this.model.getValueAt(row, 3).toString()));
+        product.setStocks(Integer.parseInt(this.model.getValueAt(row, 4).toString()));
+        product.setDescription(this.model.getValueAt(row, 5).toString());
+        System.out.println("ID" + product.getId());
+        UpdateProduct update = new UpdateProduct();
+        update.setProduct(product);
+        update.setDashboard(this);
+        update.showPage(dbConnection);
+
+    }//GEN-LAST:event_tableMouseClicked
+
+    private void searchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyTyped
+        this.products = ProductController.search(this.search.getText(), this.dbConnection);
+        this.makeTableContent();
+    }//GEN-LAST:event_searchKeyTyped
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        DeleteProduct dp = new DeleteProduct();
+        dp.showPage(this.dbConnection);
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        this.dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -252,47 +450,71 @@ public class Dashboard extends javax.swing.JFrame implements CanShowPage {
         });
     }
     /*
-    *@param user for user to set
-    */
-    public void setUser(User user){
+     *@param user for user to set
+     */
+
+    public void setUser(User user) {
         this.user = user;
     }
 
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel back2;
+    private javax.swing.JButton addProduct;
+    private javax.swing.JPanel content;
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel main;
+    private javax.swing.JPanel navbar;
+    private javax.swing.JTextField search;
+    private javax.swing.JTable table;
+    private javax.swing.JLabel totalCountLabel;
+    private javax.swing.JLabel totalProductLabel;
+    private javax.swing.JPanel totalProducts;
     // End of variables declaration//GEN-END:variables
     @Override
     public void showPage(DbConnection dbConnection) {
         this.dbConnection = dbConnection;
         this.setVisible(true);
+        populateTable();
+    }
+
+    public void populateTable() {
+
+        this.makeTableContent();
+        
+        this.totalCountLabel.setText(String.valueOf(this.products.size()));
+
+    }
+
+    private void makeTableContent() {
+        this.model = new DefaultTableModel();
+
+        this.model.setColumnIdentifiers(new Object[]{"ID", "Name", "Brand", "Price", "Stocks", "Description"});
+
+        this.products.stream().map(product -> {
+            Object[] row = new Object[7];
+            row[0] = product.getId();
+            row[1] = product.getName();
+            row[2] = product.getBrand();
+            row[3] = product.getPrice();
+            row[4] = product.getStocks();
+            row[5] = product.getDescription();
+            return row;
+        }).forEach(this.model::addRow);
+        this.table.setModel(this.model);
+        System.out.println("make table content");
+    }
+
+    public void updateProducts() {
+        this.products = ProductController.products(dbConnection);
+        this.populateTable();
     }
 }
